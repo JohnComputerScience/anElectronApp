@@ -16,29 +16,30 @@
 }
 </style>
 
-<body style="background: black;">
-	<div style="color:purple;padding:20px;">
+<body class="linked">
+	
 	<h1>Programming Documentation</h1>
-	<p>Welcome to my app! This is where you will find documentation for various programming languages.
+	<p>Welcome to my app! This is where you will find documentation for various programming languages.</p>
 	<hr>
-	<div class="linked">
-		<a href="https://www.w3schools.com"target="_blank">HTML Documentation</a>
-		<br>
-		<a href="https://www.electronjs.org/docs"target="_blank">Electron Documentation</a>
-	</div>
-	</p>
+		<nav>
+			<a href="https://www.w3schools.com"target="_blank">HTML Documentation</a>
+			<a href="https://www.electronjs.org/docs"target="_blank">Electron Documentation</a>	
+		</nav>
+		<hr>
+		<section>
+			<button type="button", id="electronButton">Electron.js Documentation</button> 
+			<p>Click this to go to the official Electron documentation</p>
+			<hr>
+			<button type="button", id="htmlButton">HTML Documentation</Button>
+			<p>Click this to go to w3Schools HTML documentation</p>
+		</section>
+	
+	
+	<script src ="main.renderer.js">
+		document.getElementById("electronButton").onclick = newWindow;
+		document.getElementById("htmlButton").onclick = newWindow;
+
+	</script>
 	<script src ="renderer.js"></script>
-
-
-
-
-	<!--
-	<a class="button" href="#">Anchor button</a>
-	<a href="link/html-text-link.htm" target="electron.js documentation">Open page in new window</a>
-	<button>Button element</button>
-	<input type="submit" value="submit input">i
-	<input type="button" value="button input">
-	-->
-	</div>
 </body>
 </html>
