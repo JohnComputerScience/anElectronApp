@@ -2,15 +2,43 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Hello World!</title>
+	<title>ELECTRODE</title>
 	<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
 </head>
-<body style="background: white;">
-	<h1>Hello World!</h1>
-	<p>
-		We are using node <script>document.write(process.versions.node)</script>,
-		Chrome <script>document.write(process.versions.chrome)</script>,
-		and Electron <script>document.write(process.verisons.electron)</script>.
+<style>
+.linked {
+	background-color: black;
+	color: purple;
+	border: 4px solid grey;
+	margin: 10px;
+	padding 10px;
+
+}
+</style>
+
+<body style="background: black;">
+	<div style="color:purple;padding:20px;">
+	<h1>Programming Documentation</h1>
+	<p>Welcome to my app! This is where you will find documentation for various programming languages.
+	<hr>
+	<div class="linked">
+		<a href="https://www.w3schools.com"target="_blank">HTML Documentation</a>
+		<br>
+		<a href="https://www.electronjs.org/docs"target="_blank">Electron Documentation</a>
+	</div>
 	</p>
+	<script src ="renderer.js"></script>
+
+
+
+
+	<!--
+	<a class="button" href="#">Anchor button</a>
+	<a href="link/html-text-link.htm" target="electron.js documentation">Open page in new window</a>
+	<button>Button element</button>
+	<input type="submit" value="submit input">i
+	<input type="button" value="button input">
+	-->
+	</div>
 </body>
 </html>

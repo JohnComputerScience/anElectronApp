@@ -1,29 +1,71 @@
-const { app, BrowserWindow } = require('electron')
+const path = require('path')
+const {app, BrowserWindow} = require('electron')
+const debug = /--debug/.test(process.argv[2])
 
-function createWindow () {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true
+let mainWindow = null
+
+function initialize () {
+  
+  makeSingleInstance()
+
+  function createWindow () {
+    const windowOptions = {
+      width: 800,
+      minWidth: 400,
+      height: 800,
+      title: app.getName(),
+      webPreferences: {
+        nodeIntegration: true
+      }
+    }
+
+    if (process.platform === 'linux') {
+      windowOptions.icon = path.join(__dirname, '/assets/app-icon/png/512.png')
+    }
+
+    mainWindow = new BrowserWindow(windowOptions)
+    mainWindow.loadURL(path.join('file://', __dirname, '/index.html'))
+
+    // Launch fullscreen with DevTools open, usage: npm run debug
+    if (debug) {
+      mainWindow.webContents.openDevTools()
+      mainWindow.maximize()
+      require('devtron').install()
+    }
+
+    mainWindow.on('closed', () => {
+      mainWindow = null
+    })
+  }
+
+  app.on('ready', () => {
+    createWindow()
+  })
+
+  app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+      app.quit()
     }
   })
 
-  win.loadFile('index.html')
+  app.on('activate', () => {
+    if (mainWindow === null) {
+      createWindow()
+    }
+  })
 }
 
-app.whenReady().then(createWindow)
+function makeSingleInstance () {
+  if (process.mas) return
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
+  app.requestSingleInstanceLock()
 
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow()
-  }
-})
+  app.on('second-instance', () => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+    }
+  })
+}
 
-
+initialize()
